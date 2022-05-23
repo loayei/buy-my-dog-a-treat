@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
+//0x8ec45b9ec7dbF34d41CfC9c1AC8b86470077D739 contract address
+
 contract BuyTreats {
     // Even when a memo is created is emitted
     event MemoCreated(
