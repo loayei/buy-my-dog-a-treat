@@ -7,27 +7,35 @@ contract BuyTreats {
     // Even when a memo is created is emitted
     event MemoCreated(
         address indexed owner,
+        uint256 timestamp,
         string name,
-        string message,
-        uint256 timestamp
+        string message
+        
     );
     // Memo Structure
     struct Memo {
         address owner;
+        uint256 timestamp;
         string name;
         string message;
-        uint256 timestamp;
     }
-
-    // The list of all the memos
-    Memo[] memos;
 
     // Contract deployer address
     address payable deployer;
 
+    // The list of all the memos
+    Memo[] memos;
+
     //logic
     constructor() {
         deployer = payable(msg.sender);
+    }
+
+    // Get memos
+    // @dev returns the list of all the memos
+
+    function getMemos() public view returns (Memo[] memory) {
+        return memos;
     }
 
     /*
@@ -41,16 +49,16 @@ contract BuyTreats {
 
         memos.push(Memo(
             msg.sender,
-            _name,
+            block.timestamp,
             _message,
-            block.timestamp
+            _name
         ));
 
         emit MemoCreated(
             msg.sender,
-            _name,
+            block.timestamp,
             _message,
-            block.timestamp
+            _name
         );
     }
 
@@ -61,10 +69,5 @@ contract BuyTreats {
         require(deployer.send(address(this).balance));
     }
 
-    // Get memos
-    // @dev returns the list of all the memos
 
-    function getMemos() public view returns (Memo[] memory) {
-        return memos;
-    }
 }
